@@ -6,7 +6,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 require("dotenv").config()
-
 const Sequelize = require("sequelize")
 
 const sequelize = new Sequelize(DATABASE_URL, {

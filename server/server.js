@@ -6,7 +6,7 @@ require('dotenv').config()
 //const {SERVER_PORT} = process.env
 const PORT = process.env.PORT || 4000
 
-const {seedDataBase, loginPart, registerPart, postMessage} = require("./controller.js")
+const {seedDataBase, loginPart, registerPart, postMessage, showAllPosts} = require("./controller.js")
 
 
 //Middleware
@@ -21,6 +21,8 @@ app.post("/api/login", loginPart)
 app.post("/api/register", registerPart)
 
 app.post("/api/post", postMessage)
+
+app.get("/api/show", showAllPosts)
 
 
 app.get('/*', function (req, res) {

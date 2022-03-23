@@ -112,6 +112,18 @@ const sequelize = new Sequelize(DATABASE_URL, {
           res.status(200).send(dbRes[0])
         })
         .catch(err=>console.log(err))
+      },
+
+
+      showAllPosts: (req,res) =>{
+        sequelize.query(`
+        SELECT * FROM messages
+        `)
+        .then(dbRes=>{
+          console.log(dbRes[0])
+          res.status(200).send(dbRes[0])
+        })
+        .catch(err=>console.log(err))
       }
 
 

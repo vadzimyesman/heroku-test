@@ -31,3 +31,6 @@
         //     message varchar(30),
         //     nickname varchar(30)
         //   ); 
+
+        //"start": "node ./server/server.js && npm build",
+        //"proxy":"http://localhost:4000",

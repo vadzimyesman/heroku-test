@@ -1,10 +1,15 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import MessagePost from './MessagePost'
 
 function Chat(props) {
 
     const [input1,setInput1]=useState("")
     const [posts, updatePosts]=useState([])
+    
+    useEffect(()=>{
+        axios.get(`/api/show`).then(res=>updatePosts(res.data))
+    },[])
 
     const handleClick1 = () =>{
         setInput1("")
@@ -22,7 +27,7 @@ function Chat(props) {
 
     let messagesToDisplay = posts
         .map((element,index)=>{
-            return <h3 key={index}>{element.nickname}:{element.message}</h3>
+            return <MessagePost key={index} nickname={element.nickname} message={element.message}/>
         })
 
   return (

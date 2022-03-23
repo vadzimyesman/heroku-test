@@ -61,7 +61,7 @@ function LoginRegisterForms() {
                     console.log(res.data)
                     setLobbyStatus(true)
                     setregisterFormStatus(false)
-                    setNickname(input4)
+                    setNickname(input3)
                 } else {
                     setNicknameError(true)
                 }

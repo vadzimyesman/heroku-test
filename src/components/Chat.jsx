@@ -9,7 +9,7 @@ function Chat(props) {
     
     useEffect(()=>{
         axios.get(`/api/show`).then(res=>updatePosts(res.data))
-    },[])
+    },[posts])
 
     const handleClick1 = () =>{
         setInput1("")

@@ -9,7 +9,8 @@ function Chat(props) {
     const handleClick1 = () =>{
         setInput1("")
         const body ={
-            message: input1
+            message: input1,
+            nickname: props.nickname
         }
         axios.post(`/api/post`,body)
         .then(res=>{
@@ -21,7 +22,7 @@ function Chat(props) {
 
     let messagesToDisplay = posts
         .map((element,index)=>{
-            return <h3 key={index}>{props.nickname}:{element.message}</h3>
+            return <h3 key={index}>{element.nickname}:{element.message}</h3>
         })
 
   return (

@@ -99,15 +99,15 @@ const sequelize = new Sequelize(DATABASE_URL, {
 
 
       postMessage: (req,res) =>{
-        let {message}=req.body
+        let {message,nickname}=req.body
         console.log(message)
         sequelize.query(`
-  
-        INSERT INTO messages (message)
-        VALUES ('${message}');
+        INSERT INTO messages (message, nickname)
+        VALUES ('${message}', '${nickname}');
         SELECT * FROM messages
         `)
         .then(dbRes=>{
+
           console.log(dbRes[0])
           res.status(200).send(dbRes[0])
         })

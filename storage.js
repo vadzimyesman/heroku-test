@@ -1,6 +1,6 @@
-import BestPlayers from './BestPlayers'
-import LoginRegisterForms from './LoginRegisterForms'
-import Play from './Play'
+// import BestPlayers from './BestPlayers'
+// import LoginRegisterForms from './LoginRegisterForms'
+// import Play from './Play'
 
 
 // {navBarStatus && <ul>
@@ -24,3 +24,10 @@ import Play from './Play'
         //   message_id serial primary key, 
         //   message varchar(30)
         // );     http://localhost:4444
+
+        // drop table if exists messages;
+        // create table messages (
+        //     message_id serial primary key, 
+        //     message varchar(30),
+        //     nickname varchar(30)
+        //   ); 

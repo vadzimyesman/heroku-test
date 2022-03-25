@@ -9,7 +9,7 @@ function Chat(props) {
     
     useEffect(()=>{
         tet2()
-    },[])
+    })
 
     const tet2=()=>{
         axios.get(`/api/show`).then(res=>updatePosts(res.data))

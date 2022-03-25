@@ -14,8 +14,8 @@ function Teams(props) {
 
     useEffect(()=>{
         tet1()
-    },[])
-    
+    })
+
     const tet1 = ()=>{
         axios.get(`/api/showTeams`)
         .then(res=>{

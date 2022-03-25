@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Chat from './Chat'
+import KillGame from './KillGame'
 
 
 function Teams(props) {
@@ -11,6 +12,7 @@ function Teams(props) {
     const [blueAgents, setBlueAgents]=useState([])
 
     const [display1, setDisplay1]=useState(true)
+    const [display2, setDisplay2]=useState(false)
 
     useEffect(()=>{
         tet1()
@@ -111,7 +113,10 @@ function Teams(props) {
                 >Join as an agent</button>
             </div>}
         </div>
-        <h1>Admin is {props.admin}</h1>
+        <div>
+            <h1>Admin is {props.admin}</h1>
+            {props.nickname==props.admin &&<KillGame />}
+        </div>
         <div>
             <h3>Blue team</h3>
             <h3>Spy: {blueSpy}</h3>

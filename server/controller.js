@@ -159,19 +159,26 @@ const sequelize = new Sequelize(DATABASE_URL, {
       },
 
 
-      killGame:(req,res) =>{
+      killGame: (req,res) =>{
         sequelize.query(`
         DROP TABLE admin;
-        DROP TABLE redTeam;
         CREATE TABLE admin (
           admin_id serial primary key,
           nickname varchar(30)
         );
-        CREATE TABLE reteam (
-          player_id serial primary key,
+        DROP TABLE messages;
+        CREATE TABLE messages (
+          message_id serial primary key, 
+          message varchar(30),
+          nickname varchar(30)
+        ); 
+        DROP TABLE players;
+        CREATE TABLE players(
+          player_id SERIAL PRIMARY KEY,
           nickname varchar(30),
-          agent boolean
-        )
+          red boolean,
+          spy boolean
+          )
         `)
         res.status(200).send("Game killed")
       },

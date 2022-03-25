@@ -124,7 +124,264 @@ const sequelize = new Sequelize(DATABASE_URL, {
           res.status(200).send(dbRes[0])
         })
         .catch(err=>console.log(err))
-      }
+      },
 
+      startNewGame: (req,res) =>{
+        let {nickname}=req.body
+        console.log(nickname)
+        sequelize.query(`
+        INSERT INTO admin (nickname)
+        VALUES ('${nickname}')
+        `)
+      },
+
+
+
+      adminCheck: (req,res) =>{
+        sequelize.query(`
+        SELECT * FROM admin
+        `)
+        .then(dbRes=>{
+          let data={
+            adminExists:false,
+            adminNickname:"no admin yet"
+          }
+          if(dbRes[0].length===1){
+            console.log(`Admin is ${dbRes[0][0].nickname}`)
+            data.adminExists=true
+            data.adminNickname=dbRes[0][0].nickname
+            res.status(200).send(data)
+          } else {
+            console.log(`Admin is no admin yet!`)
+            res.status(200).send(data)
+          }
+        })
+      },
+
+
+      killGame:(req,res) =>{
+        sequelize.query(`
+        DROP TABLE admin;
+        DROP TABLE redTeam;
+        CREATE TABLE admin (
+          admin_id serial primary key,
+          nickname varchar(30)
+        );
+        CREATE TABLE reteam (
+          player_id serial primary key,
+          nickname varchar(30),
+          agent boolean
+        )
+        `)
+        res.status(200).send("Game killed")
+      },
+
+      redSpy: (req,res) =>{
+        let {nickname}=req.body
+        sequelize.query(`
+        INSERT INTO players (nickname,red,spy)
+        VALUES ('${nickname}', 'true','true');
+        SELECT * FROM players
+        `)
+        .then((dbRes)=>{
+          console.log(dbRes[0])
+          resObject={
+            redSpy : "",
+            redAgents : [],
+            blueSpy : "",
+            blueAgents : []
+          }
+
+          dbRes[0].map((element)=>{
+            if (element.red){
+              if (element.spy){
+                resObject.redSpy=element.nickname
+              } else {
+                resObject.redAgents.push(element.nickname+" ")
+              }
+            } else {
+              if (element.spy){
+                resObject.blueSpy=element.nickname
+              } else {
+                resObject.blueAgents.push(element.nickname+" ")
+              }
+            }
+
+        })
+          res.status(200).send(resObject)
+        })
+        
+      },
+
+      
+      
+      blueSpy: (req,res) =>{
+        let {nickname}=req.body
+        sequelize.query(`
+        INSERT INTO players (nickname,red,spy)
+        VALUES ('${nickname}', 'false','true');
+        SELECT * FROM players
+        `)
+        .then((dbRes)=>{
+          console.log(dbRes[0])
+          resObject={
+            redSpy : "",
+            redAgents : [],
+            blueSpy : "",
+            blueAgents : []
+          }
+
+          dbRes[0].map((element)=>{
+            if (element.red){
+              if (element.spy){
+                resObject.redSpy=element.nickname
+              } else {
+                resObject.redAgents.push(element.nickname+" ")
+              }
+            } else {
+              if (element.spy){
+                resObject.blueSpy=element.nickname
+              } else {
+                resObject.blueAgents.push(element.nickname+" ")
+              }
+            }
+
+        })
+          res.status(200).send(resObject)
+        })
+        
+      },
+
+      
+      
+      redAgent: (req,res)=>{
+        let {nickname}=req.body
+        sequelize.query(`
+        INSERT INTO players (nickname,red,spy)
+        VALUES ('${nickname}', 'true','false');
+        SELECT * FROM players
+        `)
+        .then((dbRes)=>{
+          console.log(dbRes[0])
+          resObject={
+            redSpy : "",
+            redAgents : [],
+            blueSpy : "",
+            blueAgents : []
+          }
+
+          dbRes[0].map((element)=>{
+            if (element.red){
+              if (element.spy){
+                resObject.redSpy=element.nickname
+              } else {
+                resObject.redAgents.push(element.nickname+" ")
+              }
+            } else {
+              if (element.spy){
+                resObject.blueSpy=element.nickname
+              } else {
+                resObject.blueAgents.push(element.nickname+" ")
+              }
+            }
+
+        })
+          res.status(200).send(resObject)
+        })
+        
+      },
+
+      
+      
+      blueAgent: (req,res)=>{
+        let {nickname}=req.body
+        sequelize.query(`
+        INSERT INTO players (nickname,red,spy)
+        VALUES ('${nickname}', 'false','false');
+        SELECT * FROM players
+        `)
+        .then((dbRes)=>{
+          console.log(dbRes[0])
+          resObject={
+            redSpy : "",
+            redAgents : [],
+            blueSpy : "",
+            blueAgents : []
+          }
+
+          dbRes[0].map((element)=>{
+            if (element.red){
+              if (element.spy){
+                resObject.redSpy=element.nickname
+              } else {
+                resObject.redAgents.push(element.nickname+" ")
+              }
+            } else {
+              if (element.spy){
+                resObject.blueSpy=element.nickname
+              } else {
+                resObject.blueAgents.push(element.nickname+" ")
+              }
+            }
+
+        })
+          res.status(200).send(resObject)
+        })
+        
+      }, 
+      
+      
+      
+      showTeams: (req,res)=>{
+        sequelize.query(`
+        SELECT * from players
+        WHERE player_id=1
+        `)
+        .then(dbRes=>{
+          if (dbRes[0].length!==0){
+            sequelize.query(`
+            SELECT * FROM players
+            `)
+            .then((dbRes)=>{
+              console.log(dbRes[0])
+              resObject={
+                redSpy : "",
+                redAgents : [],
+                blueSpy : "",
+                blueAgents : [],
+                allPlayers : []
+              }
+    
+              dbRes[0].map((element)=>{
+                if (element.red){
+                  if (element.spy){
+                    resObject.redSpy=element.nickname
+                  } else {
+                    resObject.redAgents.push(element.nickname+" ")
+                  }
+                } else {
+                  if (element.spy){
+                    resObject.blueSpy=element.nickname
+                  } else {
+                    resObject.blueAgents.push(element.nickname+" ")
+                  }
+                }
+                resObject.allPlayers.push(element.nickname)
+            })
+              res.status(200).send(resObject)
+            })
+          }  else{
+                resObject={
+                  redSpy : "",
+                  redAgents : [],
+                  blueSpy : "",
+                  blueAgents : [],
+                  allPlayers : []
+                }
+                res.status(200).send(resObject)
+          }
+        })
+        
+      }
 
   }

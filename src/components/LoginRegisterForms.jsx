@@ -16,6 +16,8 @@ function LoginRegisterForms() {
     const [loginErrorStatus, setLoginErrorStatus]=useState(false)
     const [nicknameError, setNicknameError]=useState(false)
     const [passwordError, setPasswordError]=useState(false)
+    const [adminStatus, setAdminStatus]=useState(false)
+    const [adminName, setAdminName]=useState("")
 
     const handleClick1 = (event) =>{
         
@@ -31,6 +33,7 @@ function LoginRegisterForms() {
         .then((res)=>{
             console.log(res.data)
             if (res.data){
+                adminExists()
                 setLobbyStatus(true)
                 setLoginFormStatus(false)
                 setNickname(input1)          
@@ -58,6 +61,7 @@ function LoginRegisterForms() {
             axios.post(`/api/register`,body)
             .then(res=>{
                 if (res.data){
+                    adminExists()
                     console.log(res.data)
                     setLobbyStatus(true)
                     setregisterFormStatus(false)
@@ -71,8 +75,18 @@ function LoginRegisterForms() {
             setPasswordError(true)
             setInput4("")
             setInput5("")
-        }        
+        }      
     }
+
+ const adminExists = ()=>{
+     axios.get(`/api/adminCheck`)
+     .then(res=>{
+        console.log(res.data)
+        setAdminStatus(res.data.adminExists)
+        setAdminName(res.data.adminNickname)
+     })
+     .catch(err=>console.log(err))
+ }
 
   return (
     <div>
@@ -139,7 +153,7 @@ function LoginRegisterForms() {
             {passwordError && <h3>Passwords did not match!</h3>}
         </form>}
 
-        {lobbyStatus && <Lobby  nickname={nickname}/>}
+        {lobbyStatus && <Lobby  nickname={nickname} adminName={adminName} adminStatus={adminStatus}/>}
     </div>
   )
 }

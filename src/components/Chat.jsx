@@ -8,8 +8,12 @@ function Chat(props) {
     const [posts, updatePosts]=useState([])
     
     useEffect(()=>{
+        tet2()
+    },[])
+
+    const tet2=()=>{
         axios.get(`/api/show`).then(res=>updatePosts(res.data))
-    },[posts])
+    }
 
     const handleClick1 = () =>{
         setInput1("")

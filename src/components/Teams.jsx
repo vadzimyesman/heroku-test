@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Chat from './Chat'
+import ChatTest from './ChatTest'
 import KillGame from './KillGame'
 
 
@@ -130,7 +131,7 @@ function Teams(props) {
                 >Join as an agent</button>
             </div>}
         </div>
-        <Chat nickname={props.nickname}/>
+        <ChatTest nickname={props.nickname}/>
     </div>
 
   )

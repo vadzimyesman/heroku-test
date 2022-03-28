@@ -13,7 +13,7 @@
 //   const [display1,setDisplay1]=useState(true)
 //   const [display2,setDisplay2]=useState(false)
 //   const [display3,setDisplay3]=useState(false)
-//   const [randomWords, setRandomWords]=useState([])
+  const [randomWords, setRandomWords]=useState([])
 
 
 //   const handleClick1 = () =>{
@@ -21,19 +21,19 @@
 //     setDisplay2(true)
 //   }
 
-//   const handleClick2 = () =>{
-//     //setDisplay1(false)
+  const handleClick2 = () =>{
+    //setDisplay1(false)
     
-//     let array2=[]
-//     for (let i=1;i<=25;i++){
-//             axios.get(`https://random-word-form.herokuapp.com/random/noun`)
-//       .then(res=>{
-//         console.log(res.data[0])
-//         array2.push(res.data[0])
-//         i===25 && setRandomWords(array2)
-//         //console.log(array2)   
-//       }) 
-//     }
+    let array2=[]
+    for (let i=1;i<=25;i++){
+            axios.get(`https://random-word-form.herokuapp.com/random/noun`)
+      .then(res=>{
+        console.log(res.data[0])
+        array2.push(res.data[0])
+        i===25 && setRandomWords(array2)
+        //console.log(array2)   
+      }) 
+    }
 
 
 
@@ -45,9 +45,9 @@
 
   
   
-//   let listOfWords = randomWords.map((element,index)=>{
-//     return < CardWithWord key={index} randomWord={element} />
-//   })
+  let listOfWords = randomWords.map((element,index)=>{
+    return < CardWithWord key={index} randomWord={element} />
+  })
 
 //   // let messagesToDisplay = posts
 //   // .map((element,index)=>{
